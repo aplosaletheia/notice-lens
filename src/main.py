@@ -676,9 +676,17 @@ def process_documents(documents):
                 "[LLM] Output stored."
             )
 
+            pdf_name = output.get(
+                "name",
+                document.get(
+                    "name",
+                    "document.pdf"
+                )
+            )
+            
             pdf_path = save_relevant_pdf(
                 document,
-                output.get("name", sanitize_filename(name))
+                pdf_name
             )
 
             print(
