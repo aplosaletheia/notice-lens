@@ -7,3 +7,5 @@
 # Environment files
 .env
 .env.*
+
+.pyc
