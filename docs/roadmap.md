@@ -2,8 +2,8 @@
 
 ## Phase 1 — Notice Webpage
 
-- [ ] Fetch webpage HTML
-- [ ] Parse HTML
+- [x] Fetch webpage HTML
+- [x] Parse HTML
 - [ ] Identify notice links
 - [ ] Extract notice metadata
 - [ ] Test against the NSUT notices page
