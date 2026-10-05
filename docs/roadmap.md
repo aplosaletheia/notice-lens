@@ -50,23 +50,7 @@
 - [x] Allow users to view extracted information
 - [x] Handle errors clearly
 
-## Phase 7 — Testing & Reliability
-
-- [ ] Create `tests/fixtures/`
-- [ ] Add direct-PDF test case
-- [ ] Add redirect test case
-- [ ] Add new-tab test case
-- [ ] Add scanned-document test case
-- [ ] Add irrelevant-notice test case
-- [ ] Add relevant-notice test case
-- [ ] Add multiple-dates test case
-- [ ] Add malformed/unavailable-document test case
-- [ ] Test duplicate notices
-- [ ] Test LLM extraction failures
-- [ ] Test end-to-end pipeline
-- [ ] Test against multiple notice-page structures
-
-## Phase 8 — Hackathon Demo Preparation
+## Phase 7 — Hackathon Demo Preparation
 
 - [ ] Prepare a reliable demo dataset
 - [ ] Prepare multiple test scenarios
@@ -78,7 +62,7 @@
 - [ ] Test the project on a clean environment
 - [ ] Document known limitations
 
-## Phase 9 — Generalization
+## Phase 8 — Generalization
 
 - [x] Separate website-specific logic from the core pipeline
 - [ ] Support different notice-page structures
