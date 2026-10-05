@@ -1,6 +1,7 @@
 import requests
 from urllib.parse import urljoin
 from playwright.sync_api import sync_playwright
+import state
 
 
 PDF_MAGIC = b"%PDF-"
@@ -10,8 +11,8 @@ SKIPPED_HREF_PREFIXES = ("mailto:", "tel:", "javascript:", "#")
 
 NAV_TIMEOUT_MS = 30000
 CLICK_TIMEOUT_MS = 10000
-NAVIGATION_GRACE_MS = 3000   # how long to wait for the click to visibly do something
-POPUP_URL_WAIT_MS = 10000    # how long a new tab may sit on about:blank
+NAVIGATION_GRACE_MS = 3000
+POPUP_URL_WAIT_MS = 10000
 POLL_MS = 100
 
 
@@ -458,6 +459,10 @@ def documentRetrieval(notices, notices_url, headless=False):
     are supplied, the browser discovers candidate links from the notices
     homepage.
 
+    The URL supplied in each notice from the notices homepage is used
+    as the persistent identity of that notice. The final PDF URL is
+    NOT used for this purpose.
+
     Returns:
         documents:
             Successfully retrieved PDFs.
@@ -471,6 +476,86 @@ def documentRetrieval(notices, notices_url, headless=False):
     failed_notices = []
 
     headers = {"User-Agent": "Mozilla/5.0"}
+
+    # ============================================================
+    # NOTICE GATE
+    #
+    # The notice URL is the URL found on the notices homepage.
+    # It is NOT the final PDF URL after redirects/browser navigation.
+    # ============================================================
+
+    saved_state = state.load_state()
+    last_notice_url = saved_state.get("last_notice_url", "")
+
+    if notices and last_notice_url:
+
+        new_notices = []
+        seen_urls = set()
+        last_url_found = False
+
+        for notice in notices:
+
+            notice_url = notice.get("url")
+
+            if not notice_url:
+                continue
+
+            # Prevent duplicate notice URLs in the same scrape.
+            if notice_url in seen_urls:
+                continue
+
+            seen_urls.add(notice_url)
+
+            # We have reached the last notice already processed.
+            if notice_url == last_notice_url:
+                last_url_found = True
+                break
+
+            new_notices.append(notice)
+
+        if last_url_found:
+            notices = new_notices
+
+            print(
+                f"[Gate] Last processed notice found: "
+                f"{last_notice_url}"
+            )
+
+            print(
+                f"[Gate] New notices to process: {len(notices)}"
+            )
+
+        else:
+            # If the old URL has disappeared from the homepage, we
+            # cannot safely determine where the new notices end.
+            print(
+                "[Gate] Last processed notice was not found on the "
+                "notices homepage."
+            )
+
+            print(
+                "[Gate] No notices will be processed to avoid "
+                "rechecking old documents."
+            )
+
+            notices = []
+
+    elif notices:
+        # First run: no previous URL exists.
+        print("[Gate] No previous notice URL found.")
+        print("[Gate] Processing all supplied notices.")
+
+    # ============================================================
+    # If there are notices to process, the newest notice URL is the
+    # homepage URL of the notice, not the eventual PDF URL.
+    #
+    # We save it after retrieval attempts so failures are not retried.
+    # ============================================================
+
+    newest_notice_url = None
+
+    if notices:
+        newest_notice_url = notices[0].get("url")
 
     # Occurrence of each name across ALL notices, so duplicate names
     # still map to the right link even if earlier ones succeeded.
@@ -527,6 +612,11 @@ def documentRetrieval(notices, notices_url, headless=False):
 
     # If all HTTP retrievals succeeded, the browser isn't needed.
     if notices and not browser_needed:
+
+        if newest_notice_url:
+            saved_state["last_notice_url"] = newest_notice_url
+            state.save_state(saved_state)
+
         return documents, failed_notices
 
     # ============================================================
@@ -555,7 +645,10 @@ def documentRetrieval(notices, notices_url, headless=False):
 
                 for notice, _ in browser_needed:
                     failed_notices.append(
-                        {**notice, "reason": f"homepage_unavailable: {error}"}
+                        {
+                            **notice,
+                            "reason": f"homepage_unavailable: {error}"
+                        }
                     )
 
                 return documents, failed_notices
@@ -576,5 +669,20 @@ def documentRetrieval(notices, notices_url, headless=False):
                 browser.close()
             except Exception:
                 pass
+
+    # ============================================================
+    # SAVE GATE
+    #
+    # This happens after all retrieval attempts. Therefore a failed
+    # notice is still considered checked and will not be retried.
+    # ============================================================
+
+    if newest_notice_url:
+        saved_state["last_notice_url"] = newest_notice_url
+        state.save_state(saved_state)
+
+        print(
+            f"[Gate] Updated last notice URL: {newest_notice_url}"
+        )
 
     return documents, failed_notices

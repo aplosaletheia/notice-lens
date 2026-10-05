@@ -4,65 +4,53 @@
 
 - [x] Fetch webpage HTML
 - [x] Parse HTML
-- [ ] Identify notice links
-- [ ] Extract notice metadata
-- [ ] Test against the NSUT notices page
+- [x] Identify notice links
+- [x] Extract notice metadata
+- [x] Test against the NSUT notices page (https://imsnsit.org/imsnsit/notifications.php)
+- [x] Test against the IITD notices page (https://academics.iitd.ac.in/circulars/)
 
 ## Phase 2 — Notice Tracking
 
-- [ ] Detect newly added notices
-- [ ] Store identifiers for processed notices
-- [ ] Prevent unnecessary reprocessing
-- [ ] Test first-run vs subsequent-run behavior
+- [x] Detect newly added notices
+- [x] Store identifiers for processed notices
+- [x] Prevent unnecessary reprocessing
+- [x] Test first-run vs subsequent-run behavior
 
 ## Phase 3 — Document Retrieval
 
-- [ ] Support direct document URLs
-- [ ] Support redirecting links
-- [ ] Add browser automation
-- [ ] Handle documents opened in new tabs
-- [ ] Capture downloaded documents
-- [ ] Handle retrieval failures
-- [ ] Delete temporary documents after processing
+- [x] Support direct document URLs
+- [x] Support redirecting links
+- [x] Add browser automation
+- [x] Handle documents opened in new tabs
+- [x] Handle retrieval failures
+- [x] Delete temporary documents after processing
 
 ## Phase 4 — AI Processing
 
-- [ ] Choose LLM/API
-- [ ] Define structured output format
-- [ ] Send documents to the LLM
-- [ ] Extract dates and times
-- [ ] Extract relevant notice information
-- [ ] Determine notice relevance to the student
-- [ ] Handle scanned documents/images
-- [ ] Handle ambiguous or incomplete information
-- [ ] Validate structured LLM output
+- [x] Choose LLM/API
+- [x] Define structured output format
+- [x] Send documents to the LLM
+- [x] Extract dates and times
+- [x] Extract relevant notice information
+- [x] Determine notice relevance to the student
+- [x] Handle scanned documents/images
+- [x] Validate structured LLM output
 
 ## Phase 5 — Student Profile
 
-- [ ] Define student profile fields
-- [ ] Create profile input/storage
-- [ ] Use profile information for relevance filtering
-- [ ] Test relevant vs irrelevant notices
+- [x] Define student profile fields
+- [x] Create profile input/storage
+- [x] Use profile information for relevance filtering
+- [x] Test relevant vs irrelevant notices
 
 ## Phase 6 — User Interface
 
-- [ ] Design initial UI
-- [ ] Display processed notices
-- [ ] Display extracted dates/events
-- [ ] Display source/evidence where appropriate
-- [ ] Allow users to review extracted information
-- [ ] Handle errors clearly
+- [x] Display processed notices
+- [x] Display extracted dates/events
+- [x] Allow users to view extracted information
+- [x] Handle errors clearly
 
-## Phase 7 — Google Calendar Integration
-
-- [ ] Set up Google Cloud project
-- [ ] Configure Google Calendar API
-- [ ] Implement Google authentication
-- [ ] Add extracted events to Google Calendar
-- [ ] Prevent duplicate calendar entries
-- [ ] Handle calendar API errors
-
-## Phase 8 — Testing & Reliability
+## Phase 7 — Testing & Reliability
 
 - [ ] Create `tests/fixtures/`
 - [ ] Add direct-PDF test case
@@ -78,7 +66,7 @@
 - [ ] Test end-to-end pipeline
 - [ ] Test against multiple notice-page structures
 
-## Phase 9 — Hackathon Demo Preparation
+## Phase 8 — Hackathon Demo Preparation
 
 - [ ] Prepare a reliable demo dataset
 - [ ] Prepare multiple test scenarios
@@ -90,11 +78,11 @@
 - [ ] Test the project on a clean environment
 - [ ] Document known limitations
 
-## Phase 10 — Generalization
+## Phase 9 — Generalization
 
-- [ ] Separate website-specific logic from the core pipeline
+- [x] Separate website-specific logic from the core pipeline
 - [ ] Support different notice-page structures
-- [ ] Improve document retrieval fallback logic
+- [x] Improve document retrieval fallback logic
 - [ ] Add support for additional document formats
 - [ ] Improve extraction reliability
-- [ ] Evaluate performance across multiple college websites
+- [x] Evaluate performance across multiple college websites

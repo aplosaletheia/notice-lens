@@ -1,0 +1,9 @@
+# Binary files
+*.bin
+
+# PDF files
+*.pdf
+
+# Environment files
+.env
+.env.*
