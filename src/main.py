@@ -1164,42 +1164,160 @@ def handle_command(argv):
     # ============================================================
 
     if command == "final":
-
-        if (
-            len(argv) == 2
-            or argv[2] == "show"
-        ):
-
-            final_info = (
-                state.load_final_info()
-            )
-
-            print(
-                f"\n[FinalInfo] "
-                f"{len(final_info)} entries stored."
-            )
-
-            for index, item in enumerate(
-                final_info,
-                start=1
-            ):
-
-                print()
-                print(
-                    f"--- Result {index} ---"
-                )
-
-                print(
-                    item
-                )
-
-            return
-
-        if argv[2] == "clear":
-
-            state.clear_final_info()
-
-            return
+   
+       if (
+           len(argv) == 2
+           or argv[2] == "show"
+       ):
+   
+           final_info = state.load_final_info()
+   
+           print(
+               f"\n[FinalInfo] "
+               f"{len(final_info)} entries stored."
+           )
+   
+           for index, item in enumerate(
+               final_info,
+               start=1
+           ):
+   
+               result = item.get(
+                   "result",
+                   ""
+               )
+   
+               try:
+                   data = json.loads(result)
+   
+               except (
+                   json.JSONDecodeError,
+                   TypeError
+               ):
+   
+                   print()
+                   print(
+                       f"--- Result {index} ---"
+                   )
+   
+                   print(
+                       result
+                   )
+   
+                   continue
+   
+               event = data.get(
+                   "event",
+                   {}
+               )
+   
+               summary = data.get(
+                   "summary",
+                   {}
+               )
+   
+               print()
+               print(
+                   f"--- Result {index} ---"
+               )
+   
+               print(
+                   f"Name         : "
+                   f"{event.get('name', 'Unnamed Event')}"
+               )
+   
+               print(
+                   f"Location     : "
+                   f"{event.get('location', '')}"
+               )
+   
+               print(
+                   f"Category     : "
+                   f"{event.get('category', '')}"
+               )
+   
+               print(
+                   f"Sub-category : "
+                   f"{event.get('sub_category', '')}"
+               )
+   
+               registration = event.get(
+                   "registration",
+                   {}
+               )
+   
+               print(
+                   "Registration : "
+                   f"{registration.get('start_date', '')} "
+                   f"{registration.get('start_time', '')}"
+                   " → "
+                   f"{registration.get('end_date', '')} "
+                   f"{registration.get('end_time', '')}"
+               )
+   
+               event_start = event.get(
+                   "event_start",
+                   {}
+               )
+   
+               event_end = event.get(
+                   "event_end",
+                   {}
+               )
+   
+               print(
+                   "Event        : "
+                   f"{event_start.get('date', '')} "
+                   f"{event_start.get('time', '')}"
+                   " → "
+                   f"{event_end.get('date', '')} "
+                   f"{event_end.get('time', '')}"
+               )
+   
+               print(
+                   f"Objective    : "
+                   f"{summary.get('objective', '')}"
+               )
+   
+               print(
+                   f"Scope        : "
+                   f"{summary.get('scope', '')}"
+               )
+   
+               people = summary.get(
+                   "important_people",
+                   []
+               )
+   
+               if people:
+   
+                   print(
+                       "Important    :"
+                   )
+   
+                   for person in people:
+   
+                       print(
+                           f"  • {person}"
+                       )
+   
+               print(
+                   f"PDF          : "
+                   f"{data.get('name', '')}"
+               )
+   
+               print(
+                   f"Relevance    : "
+                   f"{data.get('relevance', '')}"
+               )
+   
+           return
+   
+       if argv[2] == "clear":
+   
+           state.clear_final_info()
+   
+           return
 
     # ============================================================
     # Unknown command
