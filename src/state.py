@@ -41,7 +41,7 @@ DEFAULT_STATE = {
         of the event. A large-scale event open to students beyond the
         student's institute may be relevant even if it is hosted elsewhere.
         If the event related date has passed, low relevance.
-        Only output notices with 0.5 or more relevance.
+        IF RELEVACE IS LESS THAN 0.5 THEN TAKE IT AS 0.
 
         The output should strictly be in this format, not a single letter should go outside this JSON format.
         Include all the new lines and spaces as shown.
