@@ -3,8 +3,8 @@
 > A personal assistant that reads your college's notice board so you don't have to.
 
 **Hackathon:** WCC Launchpad 30 (4-5 Oct 2026) | **Track:** Everyday Automation
-**Team:** `<TEAM NAME>` | `<MEMBER NAMES>`
-**Demo video:** `<LINK>` | **Repository:** `<LINK>`
+**Team:** `arpit` | `Arpit Sharma`
+**Demo video:** `[<LINK>](https://www.youtube.com/@AplosAletheia)` | **Repository:** `[<LINK>](https://github.com/aplosaletheia/notice-lens.git)`
 
 ---
 

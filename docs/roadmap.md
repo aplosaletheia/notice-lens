@@ -52,15 +52,13 @@
 
 ## Phase 7 — Hackathon Demo Preparation
 
-- [ ] Prepare a reliable demo dataset
-- [ ] Prepare multiple test scenarios
-- [ ] Ensure the demo does not depend entirely on a live website
-- [ ] Add clear error handling
-- [ ] Prepare setup instructions
-- [ ] Prepare a short demo flow
-- [ ] Verify the complete end-to-end pipeline
-- [ ] Test the project on a clean environment
-- [ ] Document known limitations
+- [x] Prepare a reliable demo dataset
+- [x] Add clear error handling
+- [x] Prepare setup instructions
+- [x] Prepare a short demo flow
+- [x] Verify the complete end-to-end pipeline
+- [x] Test the project on a clean environment
+- [x] Document known limitations
 
 ## Phase 8 — Generalization
 

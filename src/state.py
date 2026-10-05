@@ -40,8 +40,8 @@ DEFAULT_STATE = {
         event to the student and the geographic and organizational scope
         of the event. A large-scale event open to students beyond the
         student's institute may be relevant even if it is hosted elsewhere.
-        Give major relevance to the current date and when the notice is for.
-        If by the end, relevance is less than 0.5 then treat it as 0
+        If the event related date has passed, low relevance.
+        Only output notices with 0.5 or more relevance.
 
         The output should strictly be in this format, not a single letter should go outside this JSON format.
         Include all the new lines and spaces as shown.
