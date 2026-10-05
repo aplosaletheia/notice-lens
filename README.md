@@ -87,6 +87,8 @@ cd <REPO_DIR>
 pip install -r requirements.txt
 playwright install chromium
 
+cd ".\.src\"
+
 python main.py api-key set <YOUR_API_KEY>
 python main.py profile edit
 python main.py notices set "https://academics.iitd.ac.in/circulars/"
